@@ -1,0 +1,76 @@
+<template>
+    <header>
+        <div>
+            <img id="logo_intuitivecare" src="https://static.wixstatic.com/media/b91e09_95ec298e6ed645d197af640983985c6c~mv2.png/v1/fill/w_234,h_56,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/logo_ic_v5_20210604_a4_logo_hQ.png" alt="Logo IntuitiveCare">
+        </div> 
+    </header>
+
+    <section>  
+        <div id="div_pesquisar">
+            <p>Relação de Operadoras Ativas ANS</p>    
+            <input id="input_pesquisar" v-model="pesquisa" type="text" placeholder="Pesquisar dados">
+        </div>   
+
+        <div>
+            <Tabela></Tabela>
+        </div>
+    </section>    
+</template>
+
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import Tabela from './Tabela.vue';
+
+@Options({
+  components: {
+    Tabela
+  },
+})
+
+export default class Interface extends Vue {
+    pesquisa: string = '';
+}
+</script>
+
+<style lang="scss" scoped>
+    header {
+        height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    section {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        width: 100vw;
+
+        #div_pesquisar {
+            display: flex;
+            justify-content: space-between;
+            width: 1100px;
+            margin-top: 50px;
+
+            p {
+                font-size: 20px;
+                color: #08c988;    
+            }
+
+            input {
+                width: 400px;
+                height: 30px;
+                font-size: 17px;
+                text-align: center;
+                outline: none;
+                border: none;
+                border-radius: 10px;
+                background-color: #08c988;          
+            }
+
+            input::-webkit-input-placeholder {
+                color: white;
+            }
+        }
+    }
+</style>
