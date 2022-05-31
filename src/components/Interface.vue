@@ -8,11 +8,15 @@
     <section>  
         <div id="div_pesquisar">
             <p>Relação de Operadoras Ativas ANS</p>    
-            <input id="input_pesquisar" v-model="pesquisa" type="text" placeholder="Pesquisar dados">
+            <input id="input_pesquisar" v-model="pesquisa" @keyup="buscarRelatorio(pesquisa)" type="text" placeholder="Pesquisar dados">
         </div>   
 
         <div>
-            <Tabela></Tabela>
+            <tabela :relatorio="relatorio"></Tabela>
+        </div>
+
+        <div id="div_opcoes">
+            <Opcoes></Opcoes>
         </div>
     </section>    
 </template>
@@ -20,15 +24,37 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Tabela from './Tabela.vue';
+import Opcoes from "./Opcoes.vue";
 
 @Options({
   components: {
-    Tabela
+    Tabela,
+    Opcoes
   },
 })
 
 export default class Interface extends Vue {
+    relatorio: any = {};
     pesquisa: string = '';
+
+    async buscarRelatorio(pesquisa: string) {
+
+        if (this.pesquisa.length > 0) {
+            const req = await fetch(`http://localhost:3000/relatorio?q=${pesquisa}`);
+            const data = await req.json();
+
+            this.relatorio = data;
+        } else {
+            const req = await fetch("http://localhost:3000/relatorio");
+            const data = await req.json();
+        
+            this.relatorio = data;
+        }     
+    }
+
+    mounted() {
+        this.buscarRelatorio(this.pesquisa);
+    }
 }
 </script>
 
@@ -71,6 +97,10 @@ export default class Interface extends Vue {
             input::-webkit-input-placeholder {
                 color: white;
             }
+        }
+
+        #div_opcoes {
+            width: 75%;
         }
     }
 </style>

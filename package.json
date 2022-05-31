@@ -11,7 +11,8 @@
     "@types/node": "^17.0.36",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
-    "vue-class-component": "^8.0.0-0"
+    "vue-class-component": "^8.0.0-0",
+    "vue-property-decorator": "^9.1.2"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

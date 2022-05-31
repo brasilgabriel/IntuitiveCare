@@ -2,7 +2,7 @@
     <div>
         <table class="table table-success table-striped table-sm">
             <thead id="thead">
-                <tr id="tr">
+                <tr>
                     <th>#</th>
                     <th>Registro ANS</th>
                     <th>CNPJ</th>
@@ -27,7 +27,7 @@
             </thead>
 
             <tbody>
-                <tr id="tr" v-for="(dados, index) in relatorio" v-bind:key="index">
+                <tr v-for="(dados, index) in relatorio" v-bind:key="index">
                     <td><b>{{ index + 1 }}</b></td>
                     <td>{{ dados.registroANS }}</td>
                     <td>{{ dados.cnpj }}</td>
@@ -55,28 +55,12 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import Opcoes from "./Opcoes.vue";
+import { Vue } from "vue-class-component";
+import { Prop } from "vue-property-decorator";
 
-@Options({
-    components: {
-        Opcoes,
-    }
-})
 
 export default class Tabela extends Vue {
-    relatorio: any = {};
-
-    async pegarRelatorio() {
-        const req = await fetch("http://localhost:3000/relatorio");
-        const data = await req.json();
-
-        this.relatorio = data.dados;
-    }
-
-    mounted() {
-        this.pegarRelatorio();
-    }
+    @Prop() relatorio!: any;
 }
 </script>
 
