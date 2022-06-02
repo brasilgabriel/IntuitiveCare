@@ -1,4 +1,5 @@
 <template>
+    <Header></Header>
     <Interface></Interface>
 </template>
 
@@ -13,6 +14,7 @@ import Interface from './components/Interface.vue';
     Interface
   },
 })
+
 
 export default class App extends Vue {}
 </script>

@@ -1,44 +1,64 @@
 <template>
-    <header>
-        <div>
-            <img id="logo_intuitivecare" src="https://static.wixstatic.com/media/b91e09_95ec298e6ed645d197af640983985c6c~mv2.png/v1/fill/w_234,h_56,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/logo_ic_v5_20210604_a4_logo_hQ.png" alt="Logo IntuitiveCare">
-        </div> 
-    </header>
-
     <section>  
         <div id="div_pesquisar">
-            <p>Relação de Operadoras Ativas ANS</p>    
-            <input id="input_pesquisar" v-model="pesquisa" @keyup="buscarRelatorio(pesquisa)" type="text" placeholder="Pesquisar dados">
+            <p id="p_operadoras_ativas">Relação de Operadoras Ativas ANS</p>    
+            <input v-if="mostrarInput" id="input_pesquisar" v-model="pesquisa" @keyup="buscarRelatorio(pesquisa)" type="text" placeholder="Pesquisar dados">
+            <p v-else id="p_selecione">SELECIONE DADOS DESEJADOS</p>
         </div>   
 
-        <div>
-            <tabela :relatorio="relatorio"></Tabela>
-        </div>
+        <Tabela 
+            :relatorio="relatorio" 
+            :selecionar="selecionar"
+            :editar="botaoEditarDados"
+            :excluir="botaoExcluir"
 
-        <div id="div_opcoes">
-            <Opcoes></Opcoes>
-        </div>
+            @atualizar-dados="buscarRelatorio"
+            @editar-dado="dados = $event; formulario = true"
+        ></Tabela>
+
+        <Botoes 
+            @botao-editar-dados="botaoEditarDados = true; botaoCriar = false; botaoExcluir = false; mostrarInput = false; selecionar = true" 
+            @botao-criar="botaoEditarDados = false; formulario = true; botaoCriar = true; botaoExcluir = false; mostrarInput = true; selecionar = false"             
+            @botao-excluir="botaoEditarDados = false; formulario = false; botaoCriar = false; botaoExcluir = true; mostrarInput = false; selecionar = true"
+            @botao-voltar="mostrarInput = true; formulario= false; botaoEditarDados = false; botaoExcluir = false; selecionar = false" 
+        ></Botoes>
+
+        <Formularios 
+            v-show="formulario"
+            :dados="dados"
+            :botaoCriar="botaoCriar"
+
+            @atualizar-dados="buscarRelatorio; formulario = false"
+        ></Formularios>
     </section>    
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 import Tabela from './Tabela.vue';
-import Opcoes from "./Opcoes.vue";
+import Botoes from "./Botoes.vue";
+import Formularios from "./Formularios.vue";
 
 @Options({
   components: {
     Tabela,
-    Opcoes
+    Botoes,
+    Formularios
   },
 })
 
 export default class Interface extends Vue {
     relatorio: any = {};
     pesquisa: string = '';
+    mostrarInput: boolean = true;  
+    selecionar: boolean = false;
+    botaoEditarDados: boolean = false;
+    botaoCriar: boolean = false;
+    botaoExcluir: boolean = false;
+    formulario: boolean = false;
+    dados: any = {};
 
     async buscarRelatorio(pesquisa: string) {
-
         if (this.pesquisa.length > 0) {
             const req = await fetch(`http://localhost:3000/relatorio?q=${pesquisa}`);
             const data = await req.json();
@@ -59,26 +79,18 @@ export default class Interface extends Vue {
 </script>
 
 <style lang="scss" scoped>
-    header {
-        height: 100px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
     section {
         display: flex;
         align-items: center;
         flex-direction: column;
-        width: 100vw;
 
-        #div_pesquisar {
-            display: flex;
-            justify-content: space-between;
+        #div_pesquisar {          
             width: 1100px;
             margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
 
-            p {
+            #p_operadoras_ativas {
                 font-size: 20px;
                 color: #08c988;    
             }
@@ -97,10 +109,12 @@ export default class Interface extends Vue {
             input::-webkit-input-placeholder {
                 color: white;
             }
-        }
 
-        #div_opcoes {
-            width: 75%;
+            #p_selecione {
+                font-size: 22px;
+                font-weight: 600;
+                color: black;
+            }
         }
     }
 </style>
