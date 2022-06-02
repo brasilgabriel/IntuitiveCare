@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div> <!-- quando os eventos de click forem acionados, emitiram um dado, que é usado com booleanos no componente Interface -->
         <button @click="$emit('botaoEditarDados')" v-show="botoes" type="button" class="btn botao_editar">Editar dados</button>
         <button @click="$emit('botaoCriar')" v-show="botoes" type="button" class="btn botao_criar">Criar nova operadora</button>
         <button @click="$emit('botaoExcluir')" v-show="botoes" type="button" class="btn btn-outline-danger">Excluir</button>

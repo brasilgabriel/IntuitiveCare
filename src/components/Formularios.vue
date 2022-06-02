@@ -158,9 +158,9 @@ export default class Formularios extends Vue {
         cargoRepresentante: '',
         dataRegistroANS: ''
     };
-    
 
     receberDadosNovos() {
+        // loop para filtrar as propriedades vazias
         for (const dado in this.dadosInputs) {
             this.dadosInputs[dado] !== '' ? this.dadosNovos[dado] = this.dadosInputs[dado] : '';
         }
@@ -177,7 +177,9 @@ export default class Formularios extends Vue {
             body: dataJSON
         })
 
+        // emitindo para atualizar os dados da tabela
         this.$emit('atualizarDados');
+        this.$emit('operadoraCriada');
         this.limparInputs();
     }
 
@@ -191,6 +193,7 @@ export default class Formularios extends Vue {
         })
 
         this.$emit('atualizarDados');
+        this.$emit('operadoraEditada');
         this.limparInputs();
     }
 
@@ -229,6 +232,31 @@ export default class Formularios extends Vue {
 
                 button {
                     width: 200px;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        section {
+            #div_titulos h2 {
+                font-size: 30px
+            }
+
+            form {
+                width: 700px;
+
+                div {
+                    .form-label {
+                        font-size: 15px;
+                    }
+
+                    .form-control {
+                        width: 300px;
+                    }
+                    button {
+                        width: 150px;
+                    }
                 }
             }
         }

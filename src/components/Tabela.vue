@@ -91,6 +91,7 @@ export default class Tabela extends Vue {
         });
 
         this.$emit('atualizarDados');
+        this.$emit('operadoraDeletada');
     }
 }
 </script>

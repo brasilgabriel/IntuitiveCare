@@ -20,7 +20,7 @@ export default class App extends Vue {}
 </script>
 
 <style lang="scss">
-  *::-webkit-scrollbar {
+  *::-webkit-scrollbar { // para estilizar o scroll bar do browser
     width: 10px;
     height: 10px;
   }
