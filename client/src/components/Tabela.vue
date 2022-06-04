@@ -27,9 +27,9 @@
             </thead>
 
             <tbody>
-                <tr v-bind:class="selecionar ? tr_selecionar : ''" @click="editar === true ? editarDados(dados.id) : excluir === true ? excluirDados(dados.id) : ''" v-for="dados in relatorio" v-bind:key="dados.id">
+                <tr v-bind:class="selecionar ? tr_selecionar : ''" @click="editar === true ? editarDados(index) : excluir === true ? excluirDados(dados._id) : ''" v-for="(dados, index) in relatorio" v-bind:key="index">
                     <td>
-                        <b v-show="!selecionar">{{ dados.id + 1 }}</b>
+                        <b v-show="!selecionar">{{ index + 1 }}</b>
 
                         <span v-show="editar && selecionar" >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -81,12 +81,12 @@ export default class Tabela extends Vue {
     selecionado: boolean = false;
     tr_selecionar: string = 'tr_selecionar';  
 
-    editarDados(id: number) {
-        this.$emit('editarDado', this.relatorio[id]);
+    editarDados(index: number) {
+        this.$emit('editarDado', this.relatorio[index]);
     }
 
-    async excluirDados(id: number) {
-        await fetch(`http://localhost:3000/relatorio/${id}`,{
+    async excluirDados(_id: string) {
+        await fetch(`http://localhost:3000/operadoras/${_id}`,{
             method: "DELETE"
         });
 

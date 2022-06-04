@@ -1,25 +1,20 @@
 {
-  "name": "intuitivecare",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "backend": "json-server --watch db/relatorio_cadop.json"
-  },
-  "dependencies": {
-    "@types/node": "^17.0.36",
-    "core-js": "^3.8.3",
-    "vue": "^3.2.13",
-    "vue-class-component": "^8.0.0-0",
-    "vue-property-decorator": "^9.1.2"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.0",
-    "@vue/cli-plugin-typescript": "~5.0.0",
-    "@vue/cli-service": "~5.0.0",
-    "sass": "^1.32.7",
-    "sass-loader": "^12.0.0",
-    "typescript": "~4.5.5"
-  }
+    "name": "intuitive_care",
+    "version": "1.0.0",
+    "main": "index.ts",
+    "scripts": {
+        "start": "nodemon localhost 3000"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "mongoose": "^6.3.5"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.12",
+        "nodemon": "^2.0.16",
+        "ts-node": "^10.8.1",
+        "typescript": "^4.7.3"
+    }
 }

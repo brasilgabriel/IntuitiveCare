@@ -171,7 +171,7 @@ export default class Formularios extends Vue {
     async criarNovaOperadora() {
         const dataJSON = JSON.stringify(this.dadosInputs);
 
-        await fetch(`http://localhost:3000/relatorio`, {
+        await fetch(`http://localhost:3000/operadoras`, {
             method: "POST",
             headers: { "Content-type": "application/json" },
             body: dataJSON
@@ -186,7 +186,7 @@ export default class Formularios extends Vue {
     async atualizarDados() {
         const dataJSON = JSON.stringify(this.dadosNovos);
 
-        await fetch(`http://localhost:3000/relatorio/${this.dados.id}`, {
+        await fetch(`http://localhost:3000/operadoras/${this.dados._id}`, {
             method: "PATCH",
             headers: { "Content-type": "application/json" },
             body: dataJSON
