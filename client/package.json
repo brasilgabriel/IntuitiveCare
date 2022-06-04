@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "backend": "json-server --watch db/relatorio_cadop.json"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
     "@types/node": "^17.0.36",
